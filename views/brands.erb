@@ -1,0 +1,17 @@
+<h1>All Brands</h1>
+
+<% if @brands.empty? %>
+  <h2>There are no currently added brands</h2>
+<% else %>
+  <% @brands.each do |brand| %>
+    <a href="/brands/<%= brand.id %>"><h3><%= brand.brand_name %></h3></a>
+  <% end %>
+<% end %>
+
+<form action="/brands" method="post">
+  <label for="add-brand">Add a Brand</label>
+  <input id="add-brand" type="text" name="add-brand">
+  <label for="price">Enter the Price of this Brand</label>
+  <input type="text" name="price" id="price">
+  <button type="submit" class="btn btn-primary">Add</button>
+</form>

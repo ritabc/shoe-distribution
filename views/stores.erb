@@ -1,0 +1,30 @@
+<h1>All Stores</h1>
+
+<% if @stores.empty? %>
+  <h2>There are no currently added stores</h2>
+<% else %>
+  <% @stores.each do |store| %>
+    <div class="row">
+      <div class="col-md-5">
+        <a href="/stores/<%= store.id %>"><h3><%= store.store_name %></h3></a>
+      </div>
+      <div class="col-md-1">
+        <form class="form-inline" action="/stores/<%= store.id %>/edit" method="get">
+          <button type="submit" class="btn btn-warning">Edit</button>
+        </form>
+      </div>
+      <div class="col-md-1">
+        <form class="form-inline" action="/stores" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<form action="/stores" method="post">
+  <label for="add-store">Add a Store</label>
+  <input id="add-store" type="text" name="add-store">
+  <button type="submit" class="btn btn-primary">Add</button>
+</form>
