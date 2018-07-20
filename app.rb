@@ -49,3 +49,22 @@ get('/stores/:id') do
   @store = Store.find(params.fetch(:id))
   erb(:store)
 end
+
+get('/stores/:id/edit') do
+  @store = Store.find(params.fetch(:id))
+  erb(:store_edit)
+end
+
+patch('/stores/:id') do
+  new_name = params.fetch('store-name')
+  @store = Store.find(params.fetch(:id))
+  @store.update(store_name: new_name)
+  erb(:store)
+end
+
+delete('/stores') do
+  @store = Store.find(params.fetch('store-id'))
+  @store.destroy
+  @stores = Store.all
+  erb(:stores)
+end

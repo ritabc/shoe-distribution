@@ -16,6 +16,7 @@
       <div class="col-md-1">
         <form class="form-inline" action="/stores" method="post">
           <input type="hidden" name="_method" value="delete">
+          <input type="hidden" name="store-id" value="<%= store.id %>">
           <button type="submit" class="btn btn-danger">Delete</button>
         </form>
       </div>
