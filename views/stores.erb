@@ -9,11 +9,6 @@
         <a href="/stores/<%= store.id %>"><h3><%= store.store_name %></h3></a>
       </div>
       <div class="col-md-1">
-        <form class="form-inline" action="/stores/<%= store.id %>/edit" method="get">
-          <button type="submit" class="btn btn-warning">Edit</button>
-        </form>
-      </div>
-      <div class="col-md-1">
         <form class="form-inline" action="/stores" method="post">
           <input type="hidden" name="_method" value="delete">
           <input type="hidden" name="store-id" value="<%= store.id %>">

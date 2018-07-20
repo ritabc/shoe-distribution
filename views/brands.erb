@@ -4,7 +4,14 @@
   <h2>There are no currently added brands</h2>
 <% else %>
   <% @brands.each do |brand| %>
-    <a href="/brands/<%= brand.id %>"><h3><%= brand.brand_name %></h3></a>
+    <div class="row">
+      <div class="col-md-5">
+        <a href="/brands/<%= brand.id %>"><h3><%= brand.brand_name %></h3></a>
+      </div>
+      <div class="col-md-3">
+        <h4><%= brand.price %></h4>
+      </div>
+    </div>
   <% end %>
 <% end %>
 

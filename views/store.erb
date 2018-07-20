@@ -1,1 +1,37 @@
 <h1>Homepage for the store: <%= @store.store_name %></h1>
+
+  <% if @store_brands.empty? %>
+    <h3>This store is not yet selling any brands</h3>
+  <% else %>
+    <h2>Brands this store sells</h2>
+    <% @store_brands.each do |brand| %>
+      <div class="row">
+        <div class="col-md-5">
+          <a href="/brands/<%= brand.id %>"><h3><%= brand.brand_name %></h3></a>
+        </div>
+        <div class="col-md-3">
+          <h4><%= brand.price %></h4>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<h2>Update the store</h2>
+<form action="/stores/<%= @store.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <label for="store-name">Change the Store Name</label>
+  <input type="text" name="store-name" id="store-name">
+  <button type="submit" class="btn btn-info">Update</button>
+</form>
+<form action="/stores/<%= @store.id %>/brand" method="post">
+  <label for="add-brand">Add a Brand to this Store</label>
+  <select name="brands-dropdown">
+    <% if @all_brands.empty? %>
+      <option disabled selected>No Brands Yet</option>
+    <% else %>
+      <% @all_brands.each do |brand| %>
+        <option value="<%= brand.brand_name %>"><%= brand.brand_name %></option>
+      <% end %>
+    <% end %>
+  </select>
+  <button type="submit">Add Brand</button>
+</form>

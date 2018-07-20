@@ -47,12 +47,9 @@ end
 
 get('/stores/:id') do
   @store = Store.find(params.fetch(:id))
+  @all_brands = Brand.all
+  @store_brands = @store.brands
   erb(:store)
-end
-
-get('/stores/:id/edit') do
-  @store = Store.find(params.fetch(:id))
-  erb(:store_edit)
 end
 
 patch('/stores/:id') do
@@ -67,4 +64,14 @@ delete('/stores') do
   @store.destroy
   @stores = Store.all
   erb(:stores)
+end
+
+post('/stores/:id/brand') do
+  @store = Store.find(params.fetch(:id).to_i)
+  brand_name = params.fetch('brands-dropdown')
+  new_associated_brand = @store.brands.find_or_create_by({:brand_name => brand_name, :price => 5})
+  binding.pry
+  @store_brands = @store.brands
+  @all_brands = Brand.all
+  erb(:store)
 end
