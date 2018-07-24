@@ -1,12 +1,3 @@
-# require('sinatra')
-# require('sinatra/reloader')
-# also_reload('lib/**/*.rb')
-# require('sinatra/activerecord')
-# require('./lib/CLASS')
-# require('./lib/CLASS')
-# require('./lib/CLASS')
-# require('./lib/CLASS')
-# require("pg")
 require('bundler/setup')
 Bundler.require(:default)
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each do |file|
@@ -56,6 +47,8 @@ patch('/stores/:id') do
   new_name = params.fetch('store-name')
   @store = Store.find(params.fetch(:id))
   @store.update(store_name: new_name)
+  @all_brands = Brand.all
+  @store_brands = @store.brands
   erb(:store)
 end
 
@@ -68,9 +61,7 @@ end
 
 post('/stores/:id/brand') do
   @store = Store.find(params.fetch(:id).to_i)
-  brand_name = params.fetch('brands-dropdown')
-  new_associated_brand = @store.brands.find_or_create_by({:brand_name => brand_name, :price => 5})
-  binding.pry
+  @store.brands.find_or_create_by({:brand_name => params.fetch('brands-dropdown')})
   @store_brands = @store.brands
   @all_brands = Brand.all
   erb(:store)
